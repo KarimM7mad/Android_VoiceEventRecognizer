@@ -19,6 +19,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"
-        android:text="Welcome to the App" />
+        android:text="eventName weekday Month dayNum year at hr:min am/pm." />
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="401dp"
+        android:text="eventName weekday Month dayNum year at hr:min am/pm." />
+
 
 </RelativeLayout>
