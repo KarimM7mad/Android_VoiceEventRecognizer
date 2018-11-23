@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && data != null) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String whatisSaid = result.get(0).toString();
+                    Log.d("asdasd","lastT: |"+whatisSaid+"|");
                     String split1 = "at";
                     String split2 = "day";
                     String split3 = " (Mon|Tues|Wednes|Thurs|Fri|Sat|Sun)";
@@ -92,13 +93,9 @@ public class MainActivity extends AppCompatActivity {
                     p = Pattern.compile(split3);
                     String[] splitDayfromName = p.split(separateNameFromDate[0]);
                     goToFormActivity.putExtra("eventName", splitDayfromName[0]);
-                    goToFormActivity.putExtra("eventDay", (separateNameFromDate[0].substring(separateNameFromDate[0].lastIndexOf(" ")+1, separateNameFromDate[0].length()))+"day");
+                    goToFormActivity.putExtra("eventDay", (separateNameFromDate[0].substring(separateNameFromDate[0].lastIndexOf(" ") + 1, separateNameFromDate[0].length())) + "day");
                     startActivity(this.goToFormActivity);
 
-//                    String notWordRegex = "\\W";
-//                    String MonthNumbersRegex = "(0?[1-9]|1[012])";
-//                    String MonthNamesRegex = "((\\b\\d{1,2}\\D{0,3})?\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|(Nov|Dec)(?:ember)?)\\D?)(\\d{1,2}(st|nd|rd|th)?)?((\\s*[,.\\-\\/]\\s*)\\D?)?\\s*((19[0-9]\\d|20\\d{2})|\\d{2})*";
-//                    String timeRegex = "at ((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp].[Mm])).[\\s|]";
                 }
                 break;
             }
@@ -107,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //to see the splits results (debug Purpose)
     public void previewSplit(String[] x, int splitNum) {
         for (int i = 0; i < x.length; i++)
             Log.d("ddd", "debug:-" + splitNum + ")Split no" + i + "->" + x[i]);
