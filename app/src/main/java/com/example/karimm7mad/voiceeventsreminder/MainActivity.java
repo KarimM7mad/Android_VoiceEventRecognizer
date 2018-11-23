@@ -2,8 +2,10 @@ package com.example.karimm7mad.voiceeventsreminder;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,18 +23,21 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQ_CODE_SPEECH_INPUT = 100;
     public ImageButton micBtn = null;
+    public ImageButton helpBtn = null;
+    public ImageButton optionsBtn = null;
+    public ImageButton exitBtn = null;
     public TextView txt = null;
-    public TextView txt2 = null;
     public Intent goToFormActivity = null;
+
+    public AlertDialog.Builder builder = null;
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.txt = findViewById(R.id.txt1);
-        this.txt2 = findViewById(R.id.txt2);
 
+        this.txt = findViewById(R.id.txt1);
         this.micBtn = findViewById(R.id.micBtn);
         this.micBtn.setImageResource(R.raw.mic);
         this.micBtn.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -43,17 +48,72 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.goToFormActivity = new Intent(this, FormActivity.class);
 
+        this.helpBtn = findViewById(R.id.helpBtn);
+        this.helpBtn.setImageResource(R.raw.help);
+        this.helpBtn.setScaleType(ImageView.ScaleType.FIT_XY);
+        this.helpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Help");
+                builder.setMessage("Contact:- 01012223157\nVersion:- 1.0.0");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
+            }
+
+        });
+        this.optionsBtn = findViewById(R.id.optionsBtn);
+        this.optionsBtn.setImageResource(R.raw.option);
+        this.optionsBtn.setScaleType(ImageView.ScaleType.FIT_XY);
+        this.optionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Options");
+                builder.setMessage("Erase All Events");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
+            }
+        });
+
+        this.exitBtn = findViewById(R.id.exitBtn);
+        this.exitBtn.setImageResource(R.raw.exit);
+        this.exitBtn.setScaleType(ImageView.ScaleType.FIT_XY);
+        this.exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
+
+
+
+        this.goToFormActivity = new Intent(this, FormActivity.class);
     }
 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         finish();
+        super.onBackPressed();
     }
-
     public void startSpeechRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -65,10 +125,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), getString(R.string.app_name), Toast.LENGTH_SHORT).show();
         }
     }
-
     /*Receiving speech input*/
     @Override
-
     // regex used for event Reminding is "eventname weekday month dayNum year at hr:min am/pm"
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -95,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                     goToFormActivity.putExtra("eventName", splitDayfromName[0]);
                     goToFormActivity.putExtra("eventDay", (separateNameFromDate[0].substring(separateNameFromDate[0].lastIndexOf(" ") + 1, separateNameFromDate[0].length())) + "day");
                     startActivity(this.goToFormActivity);
-
                 }
                 break;
             }
@@ -103,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
     //to see the splits results (debug Purpose)
     public void previewSplit(String[] x, int splitNum) {
         for (int i = 0; i < x.length; i++)

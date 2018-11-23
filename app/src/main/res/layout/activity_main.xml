@@ -10,7 +10,9 @@
         android:id="@+id/micBtn"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerInParent="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="171dp" />
 
     <TextView
         android:id="@+id/txt1"
@@ -18,17 +20,48 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="91dp"
-        android:text="eventName weekday Month dayNum year at hr:min am/pm." />
+        android:layout_marginTop="69dp"
+        android:text="@string/voice_reminder"
+        android:textSize="40sp" />
 
     <TextView
-        android:id="@+id/txt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txt1"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="401dp"
-        android:text="eventName weekday Month dayNum year at hr:min am/pm." />
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="287dp"
+        android:text="press on Mic to proceed"
+        android:textSize="20sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/optionsBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+            />
+
+        <ImageButton
+            android:id="@+id/helpBtn"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            />
+
+        <ImageButton
+            android:id="@+id/exitBtn"
+            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>
